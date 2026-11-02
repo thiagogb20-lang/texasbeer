@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Conselho IA</title>
+<meta name="description" content="Várias IAs gratuitas debatem sua ideia e entregam um resumo pronto para o Claude.">
+<meta name="theme-color" content="#123A3F">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topo">
+  <h1>Conselho IA</h1>
+  <nav aria-label="Principal">
+    <button class="aba ativa" data-tela="conselho">Conselho</button>
+    <button class="aba" data-tela="historico">Histórico</button>
+    <button class="aba" data-tela="ajustes">Conexões</button>
+  </nav>
+</header>
+
+<main>
+  <section id="tela-conselho" class="tela">
+    <div class="mesa" id="mesa" role="img" aria-label="Mesa do conselho">
+      <div class="feltro"><p id="mesa-status">Aguardando sua ideia</p></div>
+    </div>
+
+    <form id="form-ideia">
+      <label for="ideia">Qual projeto você quer levar ao conselho?</label>
+      <textarea id="ideia" rows="5" required placeholder="Ex.: um app para meus clientes reservarem os campos de futebol e pagarem por Pix"></textarea>
+      <p class="aviso">Não escreva senhas, CPF ou dados de clientes. Os serviços gratuitos podem usar o texto para treinar as IAs.</p>
+      <fieldset>
+        <legend>Duração do debate</legend>
+        <label class="opcao"><input type="radio" name="modo" value="completo" checked> <span><b>Completo</b> As IAs opinam, criticam e respondem às críticas (10 pedidos)</span></label>
+        <label class="opcao"><input type="radio" name="modo" value="rapido"> <span><b>Rápido</b> As IAs opinam e criticam (7 pedidos)</span></label>
+      </fieldset>
+      <div class="acoes">
+        <button type="submit" id="iniciar" class="principal">Iniciar debate</button>
+        <button type="button" id="parar" class="secundario" hidden>Parar</button>
+      </div>
+    </form>
+
+    <div id="resultado" hidden>
+      <article class="folha">
+        <h2>Resumo para você</h2>
+        <div id="resumo" class="texto"></div>
+        <label for="respostas">Quer responder às dúvidas ou mudar algo?</label>
+        <textarea id="respostas" rows="3" placeholder="Escreva aqui e o Presidente refaz o resumo sem repetir o debate"></textarea>
+        <button id="refazer" class="secundario">Refazer resumo</button>
+      </article>
+      <article class="folha briefing">
+        <h2>Pedido para o Claude</h2>
+        <p class="medida" id="medida"></p>
+        <div id="briefing" class="texto"></div>
+        <div class="acoes">
+          <button id="copiar" class="principal">Copiar pedido</button>
+          <a class="secundario" href="https://claude.ai/new" target="_blank" rel="noopener">Abrir o Claude</a>
+        </div>
+      </article>
+    </div>
+
+    <section id="debate" hidden>
+      <h2>O debate</h2>
+      <p class="consumo" id="consumo"></p>
+      <ol id="falas"></ol>
+    </section>
+  </section>
+
+  <section id="tela-historico" class="tela" hidden>
+    <h2>Debates salvos</h2>
+    <ul id="lista-historico"></ul>
+    <p id="historico-vazio">Seus debates aparecem aqui depois de terminar o primeiro.</p>
+  </section>
+
+  <section id="tela-ajustes" class="tela" hidden>
+    <h2>Conexões das IAs</h2>
+    <p>O conselho já funciona sem cadastro, mas fica mais lento e com menos variedade. Com as chaves gratuitas abaixo, cada lugar da mesa passa a usar uma IA diferente. Nenhuma pede cartão.</p>
+    <div id="provedores"></div>
+    <p class="aviso">As chaves ficam guardadas só neste navegador e vão direto para cada serviço. Os limites gratuitos são definidos por eles e podem mudar.</p>
+  </section>
+</main>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
